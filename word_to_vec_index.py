@@ -57,26 +57,15 @@ def build_doc_vectors_word2vec(processed_docs, model):
     return doc_vectors, doc_names
 
 
-# ==================== ЧАСТЬ 3: ПОИСКОВЫЕ ФУНКЦИИ ====================
 
 def cosine_similarity(a, b):
-    """Вычисляет косинусную близость между двумя векторами"""
     if norm(a) == 0 or norm(b) == 0:
         return 0.0
     return np.dot(a, b) / (norm(a) * norm(b))
 
 
 def get_query_vector_word2vec(query, model):
-    """
-    Получает вектор запроса путем усреднения векторов слов
 
-    Args:
-        query: поисковый запрос (строка)
-        model: обученная Word2Vec модель
-
-    Returns:
-        numpy.ndarray: вектор запроса
-    """
     query_tokens = re.findall(r'\w+', query.lower())
 
     query_vectors = []
@@ -91,19 +80,7 @@ def get_query_vector_word2vec(query, model):
 
 
 def search_word2vec(query, model, doc_vectors, doc_names, top_k=5):
-    """
-    Поиск документов по запросу с использованием Word2Vec
 
-    Args:
-        query: поисковый запрос
-        model: обученная Word2Vec модель
-        doc_vectors: словарь {doc_id: вектор документа}
-        doc_names: список названий документов
-        top_k: количество возвращаемых результатов
-
-    Returns:
-        list of tuples: [(doc_name, score), ...]
-    """
     # получаем вектор запроса
     query_vector = get_query_vector_word2vec(query, model)
 
